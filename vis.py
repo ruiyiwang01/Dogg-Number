@@ -18,9 +18,9 @@ def create_graph(artist_data):
             connections.append((query_artist, collab_artist))
 
     netxG.add_edges_from(connections)
-    pvNet.from_nx(G)
+    pvNet.from_nx(netxG)
 
-    g.set_options(
+    pvNet.set_options(
         physics=True,
         layout={"improvedLayout": True},
         edges={
@@ -31,4 +31,4 @@ def create_graph(artist_data):
         toggle_hide_nodes_on_drag=True,
     )
 
-    g.show("dogg_numbers.html")
+    return pvNet
