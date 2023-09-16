@@ -13,12 +13,20 @@ class ArtistGraph:
     def __init__(self, artist_name: str):
         """artist_name: name of the artist"""
         self.artist_name = artist_name
+
+        # getting artist URI from artist name
+        results = spotify.search(q = 'artist:' + artist_name, type = 'artist')
+        items = results['artists']['items']
+        if len(items) > 0:
+            artist = items[0]
+            self.artist_uri = artist['uri']
+        
         self.cache = {0: {self.artist_name}}
         self.cached_artists = {self.artist_name}
 
     def get_collabs(self, artist_name: str):
-        """Get collaborator artists"""
-        for idx in range(0, 1000, 50):
+        """Get collaborator artists and song titles"""
+        for idx in range(0, 1000, 20):
             try:
                 track_results = spotify.search(
                     q=f"artist:{artist_name}", limit=50, type="track", offset=idx
