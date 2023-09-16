@@ -3,6 +3,7 @@
 # WIP .... to be cleaned + integrated + file will be deleted once integrated
 
 import spotipy
+import sys
 from spotipy.oauth2 import SpotifyClientCredentials
 from typing import Tuple
 
@@ -13,20 +14,37 @@ client_credentials_manager = SpotifyClientCredentials(
 )
 spotify = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
-ARTIST = "spotify:artist:1McMsnEElThX1knmY4oliG" 
-artistname = spotify.artist(ARTIST)['name']
+##################################
 
-albums = spotify.artist_albums(ARTIST)
-collab = set()
-for album in albums['items']:
-    if album['album_group'] == 'appears_on':
-        uri = album['uri']
-        tracks = spotify.album_tracks(uri)['items'] # need to fix offset
-                                                    # working for smaller artists
-        for track in tracks:
-            artists = [artist["name"] for artist in track["artists"]]
-            if len(artists) > 1 and artistname in artists:
-                collab.update(artists)
-                collab.remove(artistname)
+if len(sys.argv) > 1:
+    name = ' '.join(sys.argv[1:])
+else:
+    name = 'Radiohead'
 
-print(collab)
+results = spotify.search(q='artist:' + name, type='artist')
+items = results['artists']['items']
+if len(items) > 0:
+    artist = items[0]
+    print(artist['uri'])
+    
+##################################
+
+##ARTIST = "spotify:artist:1McMsnEElThX1knmY4oliG" 
+##artistname = spotify.artist(ARTIST)['name']
+##
+##albums = spotify.artist_albums(ARTIST)
+##collab = set()
+##for album in albums['items']:
+##    if album['album_group'] == 'appears_on':
+##        uri = album['uri']
+##        tracks = spotify.album_tracks(uri)['items'] # need to fix offset
+##                                                    # working for smaller artists
+##        for track in tracks:
+##            artists = [artist["name"] for artist in track["artists"]]
+##            if len(artists) > 1 and artistname in artists:
+##                collab.update(artists)
+##                collab.remove(artistname)
+##
+##print(collab)
+
+
