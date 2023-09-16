@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Numbers</title>
+        <link rel=""stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pyvis/0.1.9/pyvis.css">
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pyvis/0.1.9/pyvis.js"></script>
+    </head>
+    <body>
+        <h1>Numbers</h1>
+        <div id="artist-graph"></div>
+        <a href="/">Back to Input</a>
+
+        <script>
+            const graphData = {{ graph | tojson | safe}};
+            const container = document.getElementById('bacon-graph');
+            const options = {
+                // Customize Pyvis graph options here if needed
+            };
+            const graph = new vis.Network(container, graphData, options);
+        </script>
+    </body>
+</html>
