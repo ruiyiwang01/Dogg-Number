@@ -11,14 +11,13 @@ spotify = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 class ArtistGraph:
     def __init__(self, artist_name: str):
-        """artist: name of the artist
-        n: the 'Bacon' number you want, defaults to None"""
+        """artist_name: name of the artist"""
         self.artist_name = artist_name
         self.cache = {0: {self.artist_name}}
         self.cached_artists = {self.artist_name}
 
     def get_collabs(self, artist_name: str):
-        """Get collaborator artists and song titles"""
+        """Get collaborator artists"""
         for idx in range(0, 1000, 50):
             try:
                 track_results = spotify.search(
