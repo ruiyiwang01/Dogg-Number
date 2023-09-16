@@ -10,4 +10,8 @@ spotify = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 snoopdogg_uri = "spotify:artist:7hJcb9fa4alzcOq3EaNPoG"
 
-results = spotify.search(q="year:2018", limit=100, type="track")
+results = spotify.search(q="artist:Snoop Dogg", limit=50, type="track")
+for i, t in enumerate(results["tracks"]["items"]):
+    if len(t["artists"]) > 1:
+        artists = [artist["name"] for artist in t["artists"]]
+        print(t["name"], artists)
