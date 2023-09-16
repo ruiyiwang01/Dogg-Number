@@ -1,6 +1,5 @@
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
-from typing import Tuple
 
 cid = "4b7803f7994c463e9b7143eeafc2d3ee"
 secret = "6eda60dc39b04d2c9c39e5c4beb58963"
@@ -15,14 +14,11 @@ class ArtistGraph:
         """artist: name of the artist
         n: the 'Bacon' number you want, defaults to None"""
         self.artist_name = artist_name
-        self.collaborators, self.collab_songs = self.get_collabs(self.artist_name)
-        self.cache = {0: self.artist_name}
+        self.cache = {0: {self.artist_name}}
         self.cached_artists = {self.artist_name}
 
-    def get_collabs(self, artist_name: str) -> Tuple[set, set]:
+    def get_collabs(self, artist_name: str):
         """Get collaborator artists and song titles"""
-        collaborators = set()
-        collab_songs = set()
         for idx in range(0, 1000, 50):
             try:
                 track_results = spotify.search(
@@ -33,11 +29,10 @@ class ArtistGraph:
             for t in track_results["tracks"]["items"]:
                 if len(t["artists"]) > 1:
                     for artist in t["artists"]:
-                        collaborators.add(artist["name"])
-                    collab_songs.add(t["name"])
-        if artist_name in collaborators:
-            collaborators.remove(artist_name)  # can't collaborate with yourself
-        return collaborators, collab_songs
+                        collab_artist_name = artist.get("name", "")
+                        if collab_artist_name not in self.cached_artists:
+                            self.cached_artists.add(collab_artist_name)
+                            yield collab_artist_name
 
     def get_n_artists(self, n: int) -> set:
         """Get collaborators that are n away from main artist"""
@@ -46,16 +41,14 @@ class ArtistGraph:
         layer_num = max(self.cache.keys())
         cur_layer = self.cache[layer_num]
         while cur_layer:
-            if layer_num == n:
-                return cur_layer
+            if n in self.cache:
+                return self.cache[n]
+            layer_num += 1
             next_layer = set()
             for artist in cur_layer:
-                for collab_artist in self.get_collabs(artist)[0]:
-                    if collab_artist not in self.cached_artists:
-                        self.cached_artists.add(collab_artist)
-                        next_layer.add(collab_artist)
-            self.cache[layer_num] = cur_layer
+                for collab_artist in self.get_collabs(artist):
+                    next_layer.add(collab_artist)
+            self.cache[layer_num] = next_layer
             cur_layer = next_layer
-            layer_num += 1
         self.cache[layer_num] = set()
         return self.cache[layer_num]
