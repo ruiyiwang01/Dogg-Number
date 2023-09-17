@@ -18,6 +18,7 @@ class RelatedArtistGraph:
         )["artists"]["items"][0]["uri"]
         self.cache = {0: {(self.artist_name, self.artist_uri)}}
         self.cached_artists = {self.artist_name}
+        self.parents = {self.artist_name: None}
 
     def get_related_artists(self, artist_uri: str):
         """Get related artists"""
@@ -38,10 +39,11 @@ class RelatedArtistGraph:
                 return [name for name, _ in self.cache[n]]
             layer_num += 1
             next_layer = set()
-            for _, artist_uri in cur_layer:
+            for artist_name, artist_uri in cur_layer:
                 for related_artist_name, related_artist_uri in self.get_related_artists(
                     artist_uri
                 ):
+                    self.parents[related_artist_name] = artist_name
                     next_layer.add((related_artist_name, related_artist_uri))
             self.cache[layer_num] = next_layer
             cur_layer = next_layer
