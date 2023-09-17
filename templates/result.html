@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>Network Visualization</title>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
-</head>
-<body>
+    <script
+      type="text/javascript"
+      src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"
+    ></script>
+  </head>
+  <body>
     <h1>Network Visualization</h1>
     <div id="network-container"></div>
 
     <script>
-        // Get the JSON-serializable network data from Flask
-        var networkData = {{ network_data | tojson | safe }};
+      // Parse the JSON data from Flask
+      var networkData = {{ network_data_json | safe }};
+      console.log(networkData);
+      var options = {
+      physics: {
+          enabled: false,  // Make sure physics is enabled if you intend to use it.
+          // Other physics-related options...
+      },};
 
-        // Create a new vis.Network using the data
-        var container = document.getElementById('network-container');
-        var network = new vis.Network(container, networkData);
+      // Create a new vis.Network using the data
+      var container = document.getElementById('network-container');
+      var network = new vis.Network(container, networkData,options);
     </script>
-</body>
+  </body>
 </html>
