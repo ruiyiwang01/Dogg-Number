@@ -1,10 +1,8 @@
 # Import necessary libraries
-from artist_graph import ArtistGraph
 from related_artists_graph import RelatedArtistGraph
-import time
 
 # Import the Pyvis-related functions
-from melfuckery import create_related_artist_pyvis_graph
+from create_pyvis_graph import create_related_artist_pyvis_graph
 
 # Test cases
 related_artist_graph = RelatedArtistGraph("Snoop Dogg")
