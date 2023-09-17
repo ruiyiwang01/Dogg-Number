@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 from related_artists_graph import RelatedArtistGraph
 from vis import create_graph
+import json
 
 app = Flask(__name__)
 
@@ -12,7 +13,9 @@ def index():
         degree = int(request.form["singer_num"])
         artist_data = RelatedArtistGraph(singer_name)  # Calculate artist numbers
         network_data = create_graph(artist_data, degree)  # Create Pyvis graph
-        return render_template("result.html", network_data=network_data)
+        return render_template(
+            "result.html", network_data_json=json.dumps(network_data)
+        )
     return render_template("input.html")
 
 
