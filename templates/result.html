@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Network Visualization</title>
+    <title>Dogg Numbers</title>
     <script
       type="text/javascript"
       src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"
@@ -25,6 +25,7 @@
       #network-container {
         width: 100%;
         height: 100%;
+        justify-content: center;
       }
 
       /* Center the title and set the font-family to Roboto */
@@ -32,6 +33,7 @@
         text-align: center;
         font-family: "Roboto", sans-serif;
       }
+
       /* Add styles for the "Back to Input" button */
       .back-button {
         display: none; /* Initially hide the button */
@@ -40,14 +42,22 @@
         background-color: #007bff; /* Choose a button color */
         color: #fff;
         text-decoration: none;
-        border: none;
         border-radius: 5px;
         width: 10%;
-        height: 10%;
+        height: 5%;
         position: absolute; /* Position the button */
         bottom: 10px; /* Distance from the bottom of the page */
         left: 50%; /* Center horizontally */
         transform: translateX(-50%); /* Center horizontally */
+        font-family: "Open Sans", sans-serif;
+        display: run-in;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .button-text-container {
+        display: flex;
+        align-items: center;
       }
 
       .back-button:hover {
@@ -73,10 +83,10 @@
           var network = new vis.Network(container, networkData,options);
           network.once("afterDrawing", function () {
             var backButton = document.querySelector(".back-button");
-            backButton.style.display = "block";
+            backButton.style.display = "inline-flex";
           });
         </script>
-        <a href="/" class="back-button">Back</a>
+        <a href="/" class="back-button" style="line-height: 100%">Back</a>
       </div>
     </div>
   </body>
