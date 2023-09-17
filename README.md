@@ -12,3 +12,4 @@ To run the app:
 7. Run export FLASK_APP=app.py
 8. Run flask run
 9. Optionally, you can add arguments to flask run, such as choosing what port to use (e.g. flask run -p 8888)
+10. Navigate to http://127.0.0.1:[port_number] to try out the app!
