@@ -1,8 +1,9 @@
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
+from credientials import SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET
 
-cid = "4b7803f7994c463e9b7143eeafc2d3ee"
-secret = "6eda60dc39b04d2c9c39e5c4beb58963"
+cid = SPOTIPY_CLIENT_ID
+secret = SPOTIPY_CLIENT_SECRET
 client_credentials_manager = SpotifyClientCredentials(
     client_id=cid, client_secret=secret
 )
@@ -15,12 +16,12 @@ class ArtistGraph:
         self.artist_name = artist_name
 
         # getting artist URI from artist name
-        results = spotify.search(q = 'artist:' + artist_name, type = 'artist')
-        items = results['artists']['items']
+        results = spotify.search(q="artist:" + artist_name, type="artist")
+        items = results["artists"]["items"]
         if len(items) > 0:
             artist = items[0]
-            self.artist_uri = artist['uri']
-        
+            self.artist_uri = artist["uri"]
+
         self.cache = {0: {self.artist_name}}
         self.cached_artists = {self.artist_name}
 
