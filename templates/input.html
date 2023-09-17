@@ -46,6 +46,21 @@
             button:hover {
                 background-color: #0056b3; /* Darker blue on hover */
             }
+
+            .input-container {
+                display: inline-block;
+                width: 24%; /* Adjust as needed to control the width of each input container */
+                margin-right: 2%; /* Add some spacing between input containers */
+                text-align: left; /* Align text to the left within each container */
+            }
+
+            .input-container input {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 15px;
+                border: 1px solid #ccc;
+                border-radius: 8px;
+            }
         </style>
     </head>
     <body>
@@ -53,9 +68,14 @@
         <p> Enter the name of an artist on Spotify to see their collaborators:</p>
         <div class="artistSearch">
             <form method="POST" action="/">
-                <label for="singer_name">Artist:</label>
-                <input type="text" id="singer_name" name="singer_name" placeholder="Artist" required>
-                <input type="number" id="singer_num" name="singer_num" placeholder="Degree" required>
+                <div class="input-container">
+                    <input type="text" id="singer_name" name="singer_name" placeholder="Artist" required>
+                </div>
+
+                <div class="input-container">
+                    <input type="number" id="singer_num" name="singer_num" placeholder="Degree" required>
+                </div>
+
                 <button type="submit">Calculate</button>
             </form>
         </div>
