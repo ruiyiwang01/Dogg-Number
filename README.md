@@ -1,6 +1,6 @@
 # Dogg Number
 
-This is an interactive media project for HackMIT 2023. We use the Spotify API to find artists' Snoop Dogg number - the equivalent of a Bacon/Erdo number for music artists. 
+This is an interactive media project for HackMIT 2023. We use the Spotify API to find artists' Snoop Dogg number - the equivalent of a Bacon/Erdős number for music artists. 
 
 ## Instructions
 1. In terminal, run ```mkdir flask_application``` (or whatever directory you want to use for your venv)
