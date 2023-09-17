@@ -15,4 +15,4 @@ This is an interactive media project for HackMIT 2023. We use the Spotify API to
 10. Optionally, you can add arguments to flask run, such as choosing what port to use (e.g. ```flask run -p 8888```)
 11. Navigate to http://127.0.0.1:[port_number] to try out the app!
 
-Disclaimer: For degrees larger than 3, it might take a while to load the graph.
+Disclaimer: For degrees larger than 3, it might take a while to load the graph. You will also need to set up your own Spotify credentials.
